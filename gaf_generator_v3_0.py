@@ -51,6 +51,7 @@ NORMAL_CLASS_LABEL_NO = 0
 ABNORMAL_CLASS_LABEL = 'abnormal'
 ABNORMAL_CLASS_LABEL_NO = 1
 frequency = '1h'
+CLASSIFICATION_THRESHOLD = 0.0
 
 eval_split = 0.1
 training_split = 0.9
@@ -162,7 +163,7 @@ def generate_gaf(images_data: Dict[str, pd.DataFrame]) -> None:
             # print('image_data', image_data)
             to_plot = [create_gaf(x)['gasf'] for x in image_data[1]]
             gaf_mean = [create_gaf(x)['gasf_mean'] for x in image_data[1]]
-            classfication = NORMAL_CLASS_LABEL if gaf_mean[0] < 0 else ABNORMAL_CLASS_LABEL
+            classfication = NORMAL_CLASS_LABEL if gaf_mean[0] < CLASSIFICATION_THRESHOLD else ABNORMAL_CLASS_LABEL
 
             print(i, '- gaf_mean:', gaf_mean, '-> classification:', classfication)
             i = len(output_dataset)
